@@ -1,7 +1,9 @@
 package com.example.kotlinwithcompose.ui
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
@@ -10,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlin.random.Random
@@ -19,32 +22,33 @@ import kotlin.random.Random
 fun MyScreen(myViewModel: MyViewModel = viewModel()) {
     val myUiState by myViewModel.uiState.collectAsState()
 
-    LazyColumn(
-        modifier = Modifier.fillMaxHeight()
+    Column(
+        modifier = Modifier.height(200.dp)
     ) {
-        item {
+        Text(
+            text = myUiState.currentName,
+        )
+
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = { myViewModel.addName(randomName()) }
+        ) {
             Text(
-                text = myUiState.currentName,
+                text = "Add Name",
+                fontSize = 16.sp
             )
         }
-        item {
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { myViewModel.addName(randomName()) }
-            ) {
-                Text(
-                    text = "Add Name",
-                    fontSize = 16.sp
-                )
-            }
-        }
-        if (myUiState != null && myUiState.allNames != null && myUiState.allNames.isNotEmpty()) {
-            items(items = myUiState.allNames.toList()) {
-                Text(text = it)
+
+        LazyColumn(
+            modifier = Modifier.height(100.dp),
+        ) {
+            if (myUiState != null && myUiState.allNames != null && myUiState.allNames.isNotEmpty()) {
+                items(items = myUiState.allNames.toList()) {
+                    Text(text = it)
+                }
             }
         }
     }
-
 }
 
 /* Generate a random name.  Shows the use of repeat loop in Kotlin */
