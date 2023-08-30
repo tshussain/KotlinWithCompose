@@ -94,11 +94,12 @@ jobs:
         with:
           gradle-version: 8.1
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
       - name: Use 8.1 wrapper
         run: ./gradlew wrapper --gradle-version=8.1
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
 
       - name: AVD cache
         uses: actions/cache@v3
