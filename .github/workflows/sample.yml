@@ -22,8 +22,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "This job is running on a ${{ runner.os }} server hosted by GitHub!"
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+      - run: echo "The ${{ github.repository }} repository has been cloned."
+
+      - run: echo "Setting up JDK"
       # We need version 17 or higher for our app
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -31,15 +36,17 @@ jobs:
             java-version: 17
             distribution: 'temurin'
             cache: gradle
+      - run: echo "The workflow is now ready to test your code."
 
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
-
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - run: echo "Building Debug APK."
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
       - name: Run build with Gradle Wrapper
         run: ./gradlew build
+      - run: echo "Build status report=${{ job.status }}."
