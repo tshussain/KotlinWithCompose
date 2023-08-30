@@ -95,7 +95,7 @@ jobs:
           gradle-version: 8.1
 
       - name: Use 8.1 wrapper
-      - run: gradlew wrapper --gradle-version=8.1
+      - run: ./gradlew wrapper --gradle-version=8.1
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
