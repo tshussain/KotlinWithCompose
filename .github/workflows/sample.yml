@@ -32,14 +32,16 @@ jobs:
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@ccb4328a959376b642e027874838f60f8e596de3
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
       - name: Build with Gradle
         uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
         with:
           arguments: build
 
 #
-#      - name: Grant execute permission for gradlew
-#        run: chmod +x gradlew
+
 #      # Runs a single command using the runners shell
 #      - name: Run a one-line script
 #        run: echo Building...
