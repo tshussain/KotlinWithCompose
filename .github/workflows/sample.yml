@@ -15,7 +15,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains two jobs
+  # This workflow contains multiple jobs
   # The first job is called "build"
   build:
     # The type of runner that the job will run on
@@ -51,13 +51,15 @@ jobs:
 #      - name: Run build with Gradle Wrapper
 #        run: ./gradlew build
 #      - run: echo "Build status report=${{ job.status }}."
-  # The second job called "test"
+  # The second job called "unit_tests"
   # It should run only after the build job succeeds
-#  test:
-#    needs: build
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
+  unit_tests:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Starting Unit Tests"
+
+  #      - uses: actions/checkout@v3
 #
 #      - name: Set up JDK 17
 #        uses: actions/setup-java@v3
@@ -76,14 +78,17 @@ jobs:
 #      - name: Android Test Report
 #        uses: asadmansr/android-test-report-action@v1.2.0
 #        if: ${{ always() }} # IMPORTANT: run Android Test Report regardless
+  # The third job called "android_tests"
   android_tests:
+    needs: unit_tests
     runs-on: macos-latest
     steps:
+      - run: echo "Starting Instrumentation Tests"
       - name: Checkout
         uses: actions/checkout@v3
 
-#      - name: Grant execute permission for gradlew
-#        run: chmod +x gradlew
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
       - name: Instrumentation Tests
         uses: reactivecircus/android-emulator-runner@v2
