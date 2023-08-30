@@ -91,6 +91,12 @@ jobs:
 
       - name: Gradle cache
         uses: gradle/gradle-build-action@v2
+        with:
+           gradle-version: 8.1.0
+
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
       - name: AVD cache
         uses: actions/cache@v3
@@ -110,13 +116,6 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
           script: echo "Generated AVD snapshot for caching."
-
-      - uses: gradle/gradle-build-action@v2
-        with:
-          gradle-version: 8.1.0
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
 
       - name: run tests
         uses: reactivecircus/android-emulator-runner@v2
