@@ -50,3 +50,7 @@ jobs:
       - name: Run build with Gradle Wrapper
         run: ./gradlew build
       - run: echo "Build status report=${{ job.status }}."
+
+      - name: Run unit tests with Gradle Wrapper
+        run: ./gradlew test
+
