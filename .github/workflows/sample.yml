@@ -89,6 +89,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
+      # Need JDK 17 and gradle 8.1 for thecode to build properly in the emulator.
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -105,7 +106,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Use 8.1 wrapper
-        run: ./gradlew wrapper --gradle-version=8.1.0
+        run: ./gradlew wrapper --gradle-version=8.1
 
 
       - name: AVD cache
