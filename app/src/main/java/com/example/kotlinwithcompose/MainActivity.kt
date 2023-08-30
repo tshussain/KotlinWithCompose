@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.kotlinwithcompose.ui.MyScreen
 import com.example.kotlinwithcompose.ui.theme.KotlinWithComposeTheme
 
+//Vacuous change for testing CI/CD
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
