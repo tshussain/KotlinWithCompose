@@ -42,4 +42,4 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Run build with Gradle Wrapper
-        run: ./gradlew build --stacktrace
+        run: ./gradlew build
