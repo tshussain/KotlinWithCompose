@@ -133,35 +133,6 @@ fun Greeting(modifier: Modifier = Modifier) {
                 Text("Clickable", Modifier.align(Alignment.Center))
             }
         }
-        Text("Welcome to my app1")
-        Text("Welcome to my app2")
-        Text("Welcome to my app3")
-        Text("Welcome to my app4")
-        Text("Welcome to my app5")
-        Text("Welcome to my app6")
-        Text("Welcome to my app7")
-        Text("Welcome to my app8")
-        Text("Welcome to my app9")
-        Text("Welcome to my app1")
-        Text("Welcome to my app2")
-        Text("Welcome to my app3")
-        Text("Welcome to my app4")
-        Text("Welcome to my app5")
-        Text("Welcome to my app6")
-        Text("Welcome to my app7")
-        Text("Welcome to my app8")
-        Text("Welcome to my app9")
-        Text("Welcome to my app1")
-        Text("Welcome to my app2")
-        Text("Welcome to my app3")
-        Text("Welcome to my app4")
-        Text("Welcome to my app5")
-        Text("Welcome to my app6")
-        Text("Welcome to my app7")
-        Text("Welcome to my app8")
-        Text("Welcome to my app9")
-
-
     }
 }
 
