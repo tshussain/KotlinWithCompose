@@ -69,6 +69,17 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    val result1: Boolean = searchThis("Joe", {str -> str.length >= 4})
+
+                    val result2: Boolean = searchThis("Jane") {
+                        str -> str.length >= 4
+                    }
+                    val result3: Boolean = searchThis("Joe", {it.length >= 4})
+
+                    val result4: Boolean = searchThis("Jane") {
+                        it.length >= 4
+                    }
+                    println("result1: $result1 + result2: $result2 result3: $result3 + result4: $result4")
                     Scaffold(
                         topBar = { TopAppBar(title = { Text("My App") }) },
                         bottomBar = { BottomAppBar { Text("Copyright (c) 2023 CoolEntertainment, Inc.") } },
@@ -95,6 +106,7 @@ class MainActivity : ComponentActivity() {
                             higherFunc(lambda)
                             higherFunc(funcParam = { a: Int -> a + 3 })
                             higherFunc({ a: Int -> a + 4 })
+
                         }
                     }
                 }
@@ -110,6 +122,11 @@ fun existingFunction(a:Int) : Int {
 fun higherFunc(funcParam: (Int) -> Int) {
     println("Result is:" + funcParam(2))
 }
+
+fun searchThis(name: String, query: (String) -> Boolean): Boolean {
+    return query(name)
+}
+
 
 @Composable
 fun Greeting(modifier: Modifier = Modifier) {
