@@ -96,7 +96,13 @@ class MainActivity : ComponentActivity() {
                                 contentScale = ContentScale.Crop
 
                             )
+    
+                            Row(modifier = Modifier.height(250.dp)) {
+                                DisplayList()
+                                ChangingList()
+                                ListContent(onItemClick = {})
 
+                            }
                             Greeting()
 
                             // Examples of functions as parameters
@@ -187,14 +193,18 @@ fun MyForm() {
                 textStyle = TextStyle(textAlign = TextAlign.Center),
                 label = { Text(text = "Please enter your username (Must be non-empty)") }
             )
-            Spacer(modifier = Modifier.height(20.dp).width(20.dp))
+            Spacer(modifier = Modifier
+                .height(20.dp)
+                .width(20.dp))
             TextField(
                 value = passwordValue,
                 onValueChange = { passwordValue = it },
                 textStyle = TextStyle(textAlign = TextAlign.Center),
                 label = { Text(text = "Please enter your password (Must be at least 8 characters long)") }
             )
-            Spacer(modifier = Modifier.height(20.dp).width(20.dp))
+            Spacer(modifier = Modifier
+                .height(20.dp)
+                .width(20.dp))
             TextField(
                 value = ageValue,
                 onValueChange = { ageValue = it },
@@ -216,7 +226,6 @@ fun MyForm() {
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
