@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 
 package com.example.kotlinwithcompose
 
@@ -12,9 +12,12 @@ import androidx.compose.foundation.layout.Column
 
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -70,8 +73,8 @@ class MainActivity : ComponentActivity() {
                         topBar = { TopAppBar(title = { Text("My App") }) },
                         bottomBar = { BottomAppBar { Text("Copyright (c) 2023 CoolEntertainment, Inc.") } },
                         floatingActionButton = { FloatingActionButton(onClick = {}) { Text("Click Me")} }
-                    ) { innerPadding ->
-                        Column(modifier = Modifier.padding(innerPadding)) {
+                    ) {
+                        Column(modifier = Modifier.padding(paddingValues = it)) {
                             var image = painterResource(R.drawable.penguin)
                             Image(
                                 painter = image,
@@ -125,6 +128,7 @@ fun Greeting(modifier: Modifier = Modifier) {
             textStyle = TextStyle(textAlign = TextAlign.Center),
             label = { Text(text = "Please enter your name")}
         )
+        MyForm()
         Card(
             onClick = { /* Do something */ },
             modifier = Modifier.size(width = 180.dp, height = 100.dp),
@@ -147,6 +151,51 @@ fun CountWithButton() {
         ElevatedButton(onClick = { count++ },
             Modifier.padding(top = 8.dp)) {
             Text("Add one")
+        }
+    }
+}
+
+@Composable
+fun MyForm() {
+    var nameValue by rememberSaveable { mutableStateOf("") }
+    var passwordValue by rememberSaveable { mutableStateOf("") }
+    var ageValue by rememberSaveable { mutableStateOf("") }
+    var loggedInStatus by rememberSaveable { mutableStateOf(false)}
+
+    Column {
+        if (!loggedInStatus) {
+            TextField(
+                value = nameValue,
+                onValueChange = { nameValue = it },
+                textStyle = TextStyle(textAlign = TextAlign.Center),
+                label = { Text(text = "Please enter your username (Must be non-empty)") }
+            )
+            Spacer(modifier = Modifier.height(20.dp).width(20.dp))
+            TextField(
+                value = passwordValue,
+                onValueChange = { passwordValue = it },
+                textStyle = TextStyle(textAlign = TextAlign.Center),
+                label = { Text(text = "Please enter your password (Must be at least 8 characters long)") }
+            )
+            Spacer(modifier = Modifier.height(20.dp).width(20.dp))
+            TextField(
+                value = ageValue,
+                onValueChange = { ageValue = it },
+                textStyle = TextStyle(textAlign = TextAlign.Center),
+                label = { Text(text = "Please enter your age (Must be 18 or older)") }
+            )
+
+            if (!nameValue.isEmpty() && !passwordValue.isEmpty()
+                && passwordValue.length >= 8 && !ageValue.isEmpty()
+                && ageValue.toInt() >= 18
+            ) {
+                Button(onClick = { loggedInStatus = true }) {
+                    Text("Signup")
+                }
+            }
+        }
+        else {
+            Text("Welcome $nameValue. You are $ageValue years old.")
         }
     }
 }
