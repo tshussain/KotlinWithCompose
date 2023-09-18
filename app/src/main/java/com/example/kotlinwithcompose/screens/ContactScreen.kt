@@ -6,15 +6,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun ContactScreen() {
+fun ContactScreen(name: String) {
     val navController = LocalNavController.current
     Column() {
-        Text("Contact Us")
-        Button(onClick = { navController.navigate("AboutScreenRoute") }) {
+        Text("Contact Us, ${name}.")
+        Button(onClick = { navController.navigate("AboutScreenRoute/Jane") }) {
             Text("About Us")
         }
-        Button(onClick = { navController.popBackStack() }) {
-            Text("Back")
+        Button(onClick = { navController.navigate("MainScreenRoute") }) {
+            Text("Go Home")
+        }
+        if (navController.previousBackStackEntry != null) {
+            Button(onClick = { navController.navigateUp() }) {
+                Text("Back")
+            }
         }
         Button(onClick = { navController.popBackStack("MainScreenRoute", false) }) {
             Text("Back Home")

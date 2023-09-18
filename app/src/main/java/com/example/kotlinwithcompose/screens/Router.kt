@@ -1,5 +1,14 @@
 package com.example.kotlinwithcompose.screens
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
@@ -14,10 +23,15 @@ fun Router() {
     val navController = rememberNavController()
 
     CompositionLocalProvider(LocalNavController provides navController) {
-        NavHost(navController = navController, startDestination = "MainScreenRoute") {
+        NavHost(navController = navController, startDestination = "MainScreenRoute",
+            enterTransition = { slideInHorizontally () + expandHorizontally()},
+            exitTransition =  { slideOutVertically() + shrinkVertically() + fadeOut() }
+        ) {
             composable("MainScreenRoute") { MainScreen(navController) }
-            composable("AboutScreenRoute") { AboutScreen() }
-            composable("ContactScreenRoute") { ContactScreen() }
+            composable("AboutScreenRoute/{name}",
+                enterTransition = {fadeIn() + expandIn()},
+                exitTransition = { ExitTransition.None}) { AboutScreen(it.arguments?.getString("name") ?: "") }
+            composable("ContactScreenRoute/{name}") { ContactScreen(it.arguments?.getString("name") ?: "") }
         }
     }
 }

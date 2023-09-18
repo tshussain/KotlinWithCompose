@@ -52,11 +52,16 @@ fun MainScreen(navController:NavController) {
         floatingActionButton = { FloatingActionButton(onClick = {}) { Text("Click Me") } }
     ) {
         Column(modifier = Modifier.padding(paddingValues = it)) {
-            Button(onClick = { navController.navigate("AboutScreenRoute") }) {
+            Button(onClick = { navController.navigate("AboutScreenRoute/Fred") }) {
                 Text("About Us")
             }
-            Button(onClick = { navController.navigate("ContactScreenRoute") }) {
+            Button(onClick = { navController.navigate("ContactScreenRoute/Akira") }) {
                 Text("Contact Us")
+            }
+            if (navController.previousBackStackEntry != null) {
+                Button(onClick = { navController.navigateUp() }) {
+                    Text("Back")
+                }
             }
 
             var image = painterResource(R.drawable.penguin)
