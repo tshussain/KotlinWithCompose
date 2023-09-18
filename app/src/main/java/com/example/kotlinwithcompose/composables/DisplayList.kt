@@ -1,4 +1,4 @@
-package com.example.kotlinwithcompose
+package com.example.kotlinwithcompose.composables
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
