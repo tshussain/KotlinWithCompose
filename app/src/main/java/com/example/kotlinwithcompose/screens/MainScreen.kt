@@ -42,16 +42,13 @@ import com.example.kotlinwithcompose.composables.ChangingList
 import com.example.kotlinwithcompose.composables.DisplayList
 import com.example.kotlinwithcompose.composables.Greeting
 import com.example.kotlinwithcompose.composables.ListContent
+import com.example.kotlinwithcompose.layout.MainLayout
 
 @Composable
 fun MainScreen(navController:NavController) {
     val navController = LocalNavController.current
-    Scaffold(
-        topBar = { TopAppBar(title = { Text("My App") }) },
-        bottomBar = { BottomAppBar { Text("Copyright (c) 2023 CoolEntertainment, Inc.") } },
-        floatingActionButton = { FloatingActionButton(onClick = {}) { Text("Click Me") } }
-    ) {
-        Column(modifier = Modifier.padding(paddingValues = it)) {
+    MainLayout() {
+        Column() {
             Button(onClick = { navController.navigate("AboutScreenRoute/Fred") }) {
                 Text("About Us")
             }
