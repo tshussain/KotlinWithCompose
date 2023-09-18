@@ -52,7 +52,7 @@ fun MainScreen(navController:NavController) {
         Button(onClick = { navController.navigate("AboutScreenRoute/Fred") }) {
             Text("About Us")
         }
-        Button(onClick = { navController.navigate("ContactScreenRoute/Akira") }) {
+        Button(onClick = { navController.navigate("ContactScreenRoute/Akira/Japan") }) {
             Text("Contact Us")
         }
         if (navController.previousBackStackEntry != null) {

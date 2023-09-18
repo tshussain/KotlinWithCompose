@@ -12,7 +12,7 @@ fun AboutScreen(name: String) {
     val navController = LocalNavController.current
     Column() {
         Text("Welcome ${name}.  About Us")
-        Button(onClick = { navController.navigate("ContactScreenRoute/Dave") }) {
+        Button(onClick = { navController.navigate("ContactScreenRoute/Dave/New York") }) {
             Text("Contact Us")
         }
         Button(onClick = { navController.popBackStack() }) {

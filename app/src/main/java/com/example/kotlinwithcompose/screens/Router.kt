@@ -10,8 +10,6 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.compositionLocalOf
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -34,10 +32,11 @@ fun Router() {
                 it.arguments?.getString("name") ?: ""
             )
         }
-        composable("ContactScreenRoute/{name}") {
-            ContactScreen(
-                it.arguments?.getString("name") ?: ""
-            )
+        composable("ContactScreenRoute/{name}/{location}") {
+            val name = it.arguments?.getString("name") ?: ""
+            val location = it.arguments?.getString("location") ?: ""
+
+            ContactScreen(name, location)
         }
     }
 }
