@@ -42,6 +42,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -56,12 +58,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.kotlinwithcompose.ui.theme.AppTheme
-import androidx.compose.ui.text.TextStyle
+import androidx.navigation.NavHostController
+
+import androidx.navigation.compose.rememberNavController
 import com.example.kotlinwithcompose.composables.Greeting
+import com.example.kotlinwithcompose.layout.MainLayout
 import com.example.kotlinwithcompose.screens.MainScreen
 import com.example.kotlinwithcompose.screens.Router
 
-//Vacuous change for testing CI/CD2
+val LocalNavController = compositionLocalOf<NavHostController> { error("No NavController found!") }
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +78,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Router()
+                    val navController = rememberNavController()
+                    CompositionLocalProvider(LocalNavController provides navController) {
+                        MainLayout() {
+                            Router()
+                        }
+                    }
                 }
             }
         }

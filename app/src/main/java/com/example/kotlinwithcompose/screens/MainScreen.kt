@@ -36,6 +36,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.kotlinwithcompose.LocalNavController
 
 import com.example.kotlinwithcompose.R
 import com.example.kotlinwithcompose.composables.ChangingList
@@ -47,38 +48,37 @@ import com.example.kotlinwithcompose.layout.MainLayout
 @Composable
 fun MainScreen(navController:NavController) {
     val navController = LocalNavController.current
-    MainLayout() {
-        Column() {
-            Button(onClick = { navController.navigate("AboutScreenRoute/Fred") }) {
-                Text("About Us")
+    Column() {
+        Button(onClick = { navController.navigate("AboutScreenRoute/Fred") }) {
+            Text("About Us")
+        }
+        Button(onClick = { navController.navigate("ContactScreenRoute/Akira") }) {
+            Text("Contact Us")
+        }
+        if (navController.previousBackStackEntry != null) {
+            Button(onClick = { navController.navigateUp() }) {
+                Text("Back")
             }
-            Button(onClick = { navController.navigate("ContactScreenRoute/Akira") }) {
-                Text("Contact Us")
-            }
-            if (navController.previousBackStackEntry != null) {
-                Button(onClick = { navController.navigateUp() }) {
-                    Text("Back")
-                }
-            }
+        }
 
-            var image = painterResource(R.drawable.penguin)
-            Image(
-                painter = image,
-                contentDescription = "Penguins having fun",
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(RoundedCornerShape(50.dp)),
-                contentScale = ContentScale.Crop
+        var image = painterResource(R.drawable.penguin)
+        Image(
+            painter = image,
+            contentDescription = "Penguins having fun",
+            modifier = Modifier
+                .size(40.dp)
+                .clip(RoundedCornerShape(50.dp)),
+            contentScale = ContentScale.Crop
 
-            )
+        )
 
-            Row(modifier = Modifier.height(250.dp).width(400.dp)) {
-                DisplayList()
-                ChangingList()
-                ListContent(onItemClick = {})
+        Row(modifier = Modifier.height(250.dp).width(400.dp)) {
+            DisplayList()
+            ChangingList()
+            ListContent(onItemClick = {})
 
-            }
-            Greeting()
+        }
+        Greeting()
 //
 //            // Examples of functions as parameters
 //            var lambda = { a: Int -> a + 2 }
@@ -100,9 +100,9 @@ fun MainScreen(navController:NavController) {
 //            }
 //            println("result1: $result1 + result2: $result2 result3: $result3 + result4: $result4")
 
-        }
     }
 }
+
 
 
 fun existingFunction(a:Int) : Int {
