@@ -4,15 +4,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.example.kotlinwithcompose.LocalNavController
 import com.example.kotlinwithcompose.layout.MainLayout
 
 @Composable
 fun AboutScreen(name: String) {
     val navController = LocalNavController.current
-    Column() {
+    MainLayout(screenTitle = "About") {
         Text("Welcome ${name}.  About Us")
-        Button(onClick = { navController.navigate("ContactScreenRoute/Dave/New York") }) {
+        Button(onClick = { navController.navigate(Routes.Contact.go("Dave","New York"))}) {
             Text("Contact Us")
         }
         Button(onClick = { navController.popBackStack() }) {

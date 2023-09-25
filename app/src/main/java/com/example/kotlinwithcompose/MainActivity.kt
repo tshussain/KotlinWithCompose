@@ -66,8 +66,6 @@ import com.example.kotlinwithcompose.layout.MainLayout
 import com.example.kotlinwithcompose.screens.MainScreen
 import com.example.kotlinwithcompose.screens.Router
 
-val LocalNavController = compositionLocalOf<NavHostController> { error("No NavController found!") }
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,12 +76,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val navController = rememberNavController()
-                    CompositionLocalProvider(LocalNavController provides navController) {
-                        MainLayout() {
-                            Router()
-                        }
-                    }
+                    Router()
                 }
             }
         }

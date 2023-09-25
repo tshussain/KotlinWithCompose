@@ -32,11 +32,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.input.key.Key.Companion.W
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.kotlinwithcompose.LocalNavController
 
 import com.example.kotlinwithcompose.R
 import com.example.kotlinwithcompose.composables.ChangingList
@@ -46,13 +46,14 @@ import com.example.kotlinwithcompose.composables.ListContent
 import com.example.kotlinwithcompose.layout.MainLayout
 
 @Composable
-fun MainScreen(navController:NavController) {
+fun MainScreen() {
     val navController = LocalNavController.current
-    Column() {
-        Button(onClick = { navController.navigate("AboutScreenRoute/Fred") }) {
+    MainLayout(screenTitle = "Home") {
+        Button(onClick = { navController.navigate(Routes.About.go("Wichita"))
+        }) {
             Text("About Us")
         }
-        Button(onClick = { navController.navigate("ContactScreenRoute/Akira/Japan") }) {
+        Button(onClick = { navController.navigate(Routes.Contact.go("Akira","Japan")) }) {
             Text("Contact Us")
         }
         if (navController.previousBackStackEntry != null) {
