@@ -56,6 +56,14 @@ fun MainScreen() {
         Button(onClick = { navController.navigate(Routes.Contact.go("Akira","Japan")) }) {
             Text("Contact Us")
         }
+        Button(onClick = { navController.navigate(Routes.Register.Login.go("Travis"))
+        }) {
+            Text("Login")
+        }
+        Button(onClick = { navController.navigate(Routes.Register.Signup.route)
+        }) {
+            Text("Signup")
+        }
         if (navController.previousBackStackEntry != null) {
             Button(onClick = { navController.navigateUp() }) {
                 Text("Back")

@@ -14,6 +14,7 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 
 val LocalNavController = compositionLocalOf<NavHostController> { error("No NavController found!") }
@@ -26,6 +27,14 @@ sealed class Routes(val route:String)  {
     object Contact: Routes("ContactScreenRoute/{name}/{location}") {
         fun go(name: String, location: String) = "ContactScreenRoute/$name/$location"
     }
+    object Register : Routes("Register") {
+        object Login : Routes("Register/Login/{name}") {
+            fun go(name: String) = "Register/Login/$name"
+        }
+
+        object Signup : Routes("Register/Signup")
+    }
+
 }
 @Composable
 fun Router() {
@@ -49,6 +58,14 @@ fun Router() {
                 val location = it.arguments?.getString("location") ?: ""
 
                 ContactScreen(name, location)
+            }
+            navigation(route=Routes.Register.route, startDestination = Routes.Register.Signup.route) {
+                composable(Routes.Register.Login.route) {
+                    LoginScreen(
+                        it.arguments?.getString("name") ?: ""
+                    )
+                }
+                composable(Routes.Register.Signup.route) { SignupScreen() }
             }
         }
     }
