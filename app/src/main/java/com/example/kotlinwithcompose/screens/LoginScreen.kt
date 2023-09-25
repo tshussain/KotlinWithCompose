@@ -8,8 +8,8 @@ import com.example.kotlinwithcompose.layout.MainLayout
 @Composable
 fun LoginScreen(name: String) {
     val navController = LocalNavController.current
-    MainLayout(screenTitle = "About") {
-        Text("Welcome ${name}.  About Us")
+    MainLayout(screenTitle = "Login") {
+        Text("Login ${name}. ")
         Button(onClick = { navController.navigate(Routes.Contact.go("Dave","New York"))}) {
             Text("Contact Us")
         }
