@@ -22,7 +22,7 @@ fun MainLayout(
     val navController = LocalNavController.current
     Scaffold(
         topBar = { SharedTopBar(screenTitle) },
-        bottomBar = { SharedBottomBar() },
+        bottomBar = { SharedBottomBar2() },
    ) {
         Column(modifier = Modifier.padding(it)) {
             content()
