@@ -16,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.example.kotlinwithcompose.ui.MyScreen
 
 val LocalNavController = compositionLocalOf<NavHostController> { error("No NavController found!") }
 
@@ -41,11 +42,11 @@ fun Router() {
     val navController = rememberNavController()
     CompositionLocalProvider(LocalNavController provides navController) {
 
-        NavHost(navController = navController, startDestination = "MainScreenRoute",
+        NavHost(navController = navController, startDestination = Routes.Main.route,
             enterTransition = { slideInHorizontally() + expandHorizontally() },
             exitTransition = { slideOutVertically() + shrinkVertically() + fadeOut() }
         ) {
-            composable(Routes.Main.route) { MainScreen() }
+            composable(Routes.Main.route) { MySimpleScreen() }
             composable(Routes.About.route,
                 enterTransition = { fadeIn() + expandIn() },
                 exitTransition = { ExitTransition.None }) {
