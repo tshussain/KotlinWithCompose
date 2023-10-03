@@ -16,6 +16,13 @@ import com.example.kotlinwithcompose.viewmodels.MySimpleViewModel
 @Composable
 fun MySimpleScreen(myViewModel: MySimpleViewModel = viewModel()) {
     Column {
+        Button(
+            onClick = {
+                myViewModel.increment()
+                      },
+        ) {
+            Text(text = "Increment")
+        }
         Text("Total items added by user: ${myViewModel.count}")
         DisplayChangingList(theList = myViewModel.items, add = myViewModel::add,
             remove = myViewModel::remove)

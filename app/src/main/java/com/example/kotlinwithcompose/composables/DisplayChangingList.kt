@@ -12,13 +12,13 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun DisplayChangingList(theList: List<String>,
-                        add:() -> Unit,
+                        add:(String?) -> Unit,
                         remove:(String) -> Unit) {
 
     LazyColumn {
         item() {
             Button(
-                onClick = {add()},
+                onClick = {add("New Item")},
             ) {
                 Text(text = "Add Item")
             }
