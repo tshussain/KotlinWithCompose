@@ -21,6 +21,9 @@ val LocalNavController = compositionLocalOf<NavHostController> { error("No NavCo
 
 sealed class Routes(val route:String)  {
     object Main : Routes("MainScreenRoute")
+    object Details : Routes("DetailsScreenRoute/{index}") {
+        fun go(index: Int) = "DetailsScreenRoute/$index"
+    }
     object About : Routes("AboutScreenRoute/{name}") {
         fun go(name: String) = "AboutScreenRoute/$name"
     }
@@ -41,11 +44,15 @@ fun Router() {
     val navController = rememberNavController()
     CompositionLocalProvider(LocalNavController provides navController) {
 
-        NavHost(navController = navController, startDestination = "MainScreenRoute",
+        NavHost(navController = navController, startDestination = Routes.Main.route,
             enterTransition = { slideInHorizontally() + expandHorizontally() },
             exitTransition = { slideOutVertically() + shrinkVertically() + fadeOut() }
         ) {
             composable(Routes.Main.route) { MainScreen() }
+            composable(Routes.Details.route) {it->
+                val index = it.arguments?.getString("index") ?: ""
+                DetailsScreen(index.toInt())
+            }
             composable(Routes.About.route,
                 enterTransition = { fadeIn() + expandIn() },
                 exitTransition = { ExitTransition.None }) {

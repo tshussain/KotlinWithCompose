@@ -45,10 +45,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -62,9 +64,14 @@ import androidx.navigation.NavHostController
 
 import androidx.navigation.compose.rememberNavController
 import com.example.kotlinwithcompose.composables.Greeting
+import com.example.kotlinwithcompose.composables.rememberMutableStateListOf
 import com.example.kotlinwithcompose.layout.MainLayout
+import com.example.kotlinwithcompose.model.MyData
+import com.example.kotlinwithcompose.screens.LocalNavController
 import com.example.kotlinwithcompose.screens.MainScreen
 import com.example.kotlinwithcompose.screens.Router
+
+val LocalList = compositionLocalOf<SnapshotStateList<MyData>> { error("No data found!") }
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +83,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Router()
+
+                    val mainList = rememberMutableStateListOf<MyData>()
+                    CompositionLocalProvider(LocalList provides mainList) {
+                        Router()
+                    }
                 }
             }
         }

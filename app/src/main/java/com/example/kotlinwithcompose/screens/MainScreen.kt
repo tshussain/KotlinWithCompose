@@ -3,6 +3,7 @@
 package com.example.kotlinwithcompose.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,13 +13,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -37,6 +46,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.kotlinwithcompose.LocalList
 
 import com.example.kotlinwithcompose.R
 import com.example.kotlinwithcompose.composables.ChangingList
@@ -44,11 +54,38 @@ import com.example.kotlinwithcompose.composables.DisplayList
 import com.example.kotlinwithcompose.composables.Greeting
 import com.example.kotlinwithcompose.composables.ListContent
 import com.example.kotlinwithcompose.layout.MainLayout
+import com.example.kotlinwithcompose.model.MyData
 
 @Composable
 fun MainScreen() {
     val navController = LocalNavController.current
+    val mainList = LocalList.current
     MainLayout(screenTitle = "Home") {
+
+        Button(onClick = { mainList.add(MyData("Joe", mainList.size))
+        }) {
+            Text("Add")
+        }
+
+        LazyColumn {
+            itemsIndexed(mainList) { index, item ->
+                Text(text = "Index # ${index}: ${item.name} is ${item.age} years old",
+                    modifier = Modifier
+                        .clickable { navController.navigate(Routes.Details.go(index)) }
+                        .padding(16.dp)
+                )
+                IconButton(onClick = { mainList.remove(item) }) {
+                    Icon(
+                        imageVector = Icons.Filled.Delete,
+                        contentDescription = "Delete"
+                    )
+                }
+            }
+        }
+
+
+
+
         Button(onClick = { navController.navigate(Routes.About.go("Wichita"))
         }) {
             Text("About Us")
