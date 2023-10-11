@@ -55,12 +55,19 @@ import com.example.kotlinwithcompose.composables.Greeting
 import com.example.kotlinwithcompose.composables.ListContent
 import com.example.kotlinwithcompose.layout.MainLayout
 import com.example.kotlinwithcompose.model.MyData
+import com.example.kotlinwithcompose.model.MySimpleScreen
+import com.example.kotlinwithcompose.model.MySimplerScreen
+import com.example.kotlinwithcompose.model.MySimplestScreen
 
 @Composable
 fun MainScreen() {
     val navController = LocalNavController.current
     val mainList = LocalList.current
     MainLayout(screenTitle = "Home") {
+
+        MySimplestScreen()
+        MySimplerScreen()
+        MySimpleScreen()
 
         Button(onClick = { mainList.add(MyData("Joe", mainList.size))
         }) {
@@ -69,7 +76,7 @@ fun MainScreen() {
 
         LazyColumn {
             itemsIndexed(mainList) { index, item ->
-                Text(text = "Index # ${index}: ${item.name} is ${item.age} years old",
+                Text(text = "Indexx # ${index}: ${item.name} is ${item.age} years old",
                     modifier = Modifier
                         .clickable { navController.navigate(Routes.Details.go(index)) }
                         .padding(16.dp)
@@ -118,7 +125,9 @@ fun MainScreen() {
 
         )
 
-        Row(modifier = Modifier.height(250.dp).width(400.dp)) {
+        Row(modifier = Modifier
+            .height(250.dp)
+            .width(400.dp)) {
             DisplayList()
             ChangingList()
             ListContent(onItemClick = {})
