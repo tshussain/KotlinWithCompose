@@ -1,10 +1,9 @@
 package com.example.kotlinwithcompose.model
 
-import android.app.Application
-import android.content.Context
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.kotlinwithcompose.MyApp
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,13 +11,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /** Simple view model that keeps track of a single value (count in this case) */
-class MyViewModelSimpleSaved(private var application: Application) : ViewModel() {
+class MyViewModelSimpleSaved(private val profileDataStore: ProfileDataStore) : ViewModel() {
     // private UI state (MutableStateFlow)
     private val _uiState = MutableStateFlow(ProfileData())
     // public getter for the state (StateFlow)
     val uiState: StateFlow<ProfileData> = _uiState.asStateFlow()
-
-    private val profileDataStore = ProfileDataStore(application)
 
     /* Method called when ViewModel is first created */
     init {
@@ -49,4 +46,13 @@ class MyViewModelSimpleSaved(private var application: Application) : ViewModel()
         }
     }
 
+}
+
+/* ViewModel Factory that will create our view model by injecting the
+      ProfileDataStore from the module.
+ */
+class MyViewModelSimpleSavedFactory : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return MyViewModelSimpleSaved(MyApp.appModule.profileDataStore) as T
+    }
 }

@@ -65,6 +65,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.kotlinwithcompose.ui.theme.AppTheme
 import androidx.navigation.NavHostController
 
@@ -74,13 +75,13 @@ import com.example.kotlinwithcompose.composables.rememberMutableStateListOf
 import com.example.kotlinwithcompose.layout.MainLayout
 import com.example.kotlinwithcompose.model.MyData
 import com.example.kotlinwithcompose.model.MyViewModelSimpleSaved
+import com.example.kotlinwithcompose.model.MyViewModelSimpleSavedFactory
 import com.example.kotlinwithcompose.model.ProfileDataStore
 import com.example.kotlinwithcompose.screens.LocalNavController
 import com.example.kotlinwithcompose.screens.MainScreen
 import com.example.kotlinwithcompose.screens.Router
 
 val LocalList = compositionLocalOf<SnapshotStateList<MyData>> { error("No data found!") }
-val LocalViewModel = compositionLocalOf<MyViewModelSimpleSaved> { error("No data found!") }
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,11 +94,9 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val mainList = rememberMutableStateListOf<MyData>()
-                    var viewModel = MyViewModelSimpleSaved(this.application)
 
                     CompositionLocalProvider(
-                        LocalList provides mainList,
-                        LocalViewModel provides viewModel) {
+                        LocalList provides mainList) {
                         Router()
                     }
                 }
