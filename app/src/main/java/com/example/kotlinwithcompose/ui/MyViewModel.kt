@@ -10,22 +10,15 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 class MyViewModel : ViewModel() {
-    // private UI state
-    private val _uiState = MutableStateFlow(MyUiState())
-    // public getter for the state
-    val uiState: StateFlow<MyUiState> = _uiState.asStateFlow()
-
-//    private var allNames: MutableSet<String> = mutableSetOf()
+    private val _uiState = MutableStateFlow(MyUiState()) // private UI state
+    val uiState: StateFlow<MyUiState> = _uiState.asStateFlow() // public getter for the state
 
     init {
         resetState()
     }
 
-    /*
-     * Re-initializes the game data to restart the game.
-     */
+    /* Initialize the state to empty the list */
     fun resetState() {
-//        allNames.clear()
         _uiState.value = MyUiState("", emptyList())
     }
 

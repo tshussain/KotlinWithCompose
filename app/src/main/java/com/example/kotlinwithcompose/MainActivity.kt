@@ -3,6 +3,7 @@
 package com.example.kotlinwithcompose
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -59,6 +60,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinwithcompose.ui.theme.AppTheme
 import androidx.navigation.NavHostController
 
@@ -67,11 +73,14 @@ import com.example.kotlinwithcompose.composables.Greeting
 import com.example.kotlinwithcompose.composables.rememberMutableStateListOf
 import com.example.kotlinwithcompose.layout.MainLayout
 import com.example.kotlinwithcompose.model.MyData
+import com.example.kotlinwithcompose.model.MyViewModelSimpleSaved
+import com.example.kotlinwithcompose.model.ProfileDataStore
 import com.example.kotlinwithcompose.screens.LocalNavController
 import com.example.kotlinwithcompose.screens.MainScreen
 import com.example.kotlinwithcompose.screens.Router
 
 val LocalList = compositionLocalOf<SnapshotStateList<MyData>> { error("No data found!") }
+val LocalViewModel = compositionLocalOf<MyViewModelSimpleSaved> { error("No data found!") }
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,9 +92,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
                     val mainList = rememberMutableStateListOf<MyData>()
-                    CompositionLocalProvider(LocalList provides mainList) {
+                    var viewModel = MyViewModelSimpleSaved(this.application)
+
+                    CompositionLocalProvider(
+                        LocalList provides mainList,
+                        LocalViewModel provides viewModel) {
                         Router()
                     }
                 }

@@ -45,6 +45,7 @@ import androidx.compose.ui.input.key.Key.Companion.W
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import com.example.kotlinwithcompose.LocalList
 
@@ -55,9 +56,11 @@ import com.example.kotlinwithcompose.composables.Greeting
 import com.example.kotlinwithcompose.composables.ListContent
 import com.example.kotlinwithcompose.layout.MainLayout
 import com.example.kotlinwithcompose.model.MyData
+import com.example.kotlinwithcompose.model.MySimpleSavedScreen
 import com.example.kotlinwithcompose.model.MySimpleScreen
 import com.example.kotlinwithcompose.model.MySimplerScreen
 import com.example.kotlinwithcompose.model.MySimplestScreen
+import com.example.kotlinwithcompose.model.MyViewModelSimpleSaved
 
 @Composable
 fun MainScreen() {
@@ -68,6 +71,7 @@ fun MainScreen() {
         MySimplestScreen()
         MySimplerScreen()
         MySimpleScreen()
+        MySimpleSavedScreen()
 
         Button(onClick = { mainList.add(MyData("Joe", mainList.size))
         }) {
