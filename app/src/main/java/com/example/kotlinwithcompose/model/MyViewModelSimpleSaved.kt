@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /** Simple view model that keeps track of a single value (count in this case) */
-class MyViewModelSimpleSaved(private val profileDataStore: ProfileDataStore) : ViewModel() {
+class MyViewModelSimpleSaved(private val profileRepository: ProfileRepository) : ViewModel() {
     // private UI state (MutableStateFlow)
     private val _uiState = MutableStateFlow(ProfileData())
     // public getter for the state (StateFlow)
@@ -21,7 +21,7 @@ class MyViewModelSimpleSaved(private val profileDataStore: ProfileDataStore) : V
     init {
         // Start collecting the data from the data store when the ViewModel is created.
         viewModelScope.launch {
-            profileDataStore.getFromDataStore().collect { profileData ->
+            profileRepository.getProfile().collect { profileData ->
                 _uiState.value = profileData
             }
         }
@@ -30,7 +30,7 @@ class MyViewModelSimpleSaved(private val profileDataStore: ProfileDataStore) : V
     fun setName(newName: String) {
         viewModelScope.launch {
             _uiState.update { it.copy(name = newName) }
-            profileDataStore.saveToDataStore(_uiState.value)
+            profileRepository.saveProfile(_uiState.value)
         }
     }
 
@@ -42,7 +42,7 @@ class MyViewModelSimpleSaved(private val profileDataStore: ProfileDataStore) : V
             _uiState.update { currentState ->
                 currentState.copy(counter = count + 1)
             }
-            profileDataStore.saveToDataStore(_uiState.value)
+            profileRepository.saveProfile(_uiState.value)
         }
     }
 
@@ -53,6 +53,6 @@ class MyViewModelSimpleSaved(private val profileDataStore: ProfileDataStore) : V
  */
 class MyViewModelSimpleSavedFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MyViewModelSimpleSaved(MyApp.appModule.profileDataStore) as T
+        return MyViewModelSimpleSaved(MyApp.appModule.profileRepository) as T
     }
 }
