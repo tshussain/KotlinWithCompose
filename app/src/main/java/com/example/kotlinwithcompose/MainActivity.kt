@@ -22,12 +22,14 @@ import com.example.kotlinwithcompose.composables.Greeting
 import com.example.kotlinwithcompose.composables.rememberMutableStateListOf
 import com.example.kotlinwithcompose.model.MyData
 import com.example.kotlinwithcompose.screens.Router
+import com.google.firebase.FirebaseApp
 
 val LocalList = compositionLocalOf<SnapshotStateList<MyData>> { error("No data found!") }
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this)
         setContent {
             AppTheme {
                 // A surface container using the 'background' color from the theme

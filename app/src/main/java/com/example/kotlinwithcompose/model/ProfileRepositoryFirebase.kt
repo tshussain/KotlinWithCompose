@@ -1,8 +1,6 @@
 package com.example.kotlinwithcompose.model
 
-import com.example.kotlinwithcompose.AuthRepositoryFirebase
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.ktx.Firebase
+import com.example.kotlinwithcompose.auth.AuthRepositoryFirebase
 import kotlinx.coroutines.flow.Flow
 
 class ProfileRepositoryFirebase (val authRepository: AuthRepositoryFirebase) : ProfileRepository {
