@@ -19,10 +19,8 @@ fun AuthLoginScreen(authViewModel: AuthViewModel =
     ) {
     val userState = authViewModel.currentUser().collectAsState()
 
-//    val isUserSignedOut = authViewModel.getAuthState().collectAsState().value
-
     val snackbarHostState = remember { SnackbarHostState() } // Material 3 approach
-    val coroutineScope = rememberCoroutineScope()
+//    val coroutineScope = rememberCoroutineScope()
 
     Column {
         if (userState.value == null) {
