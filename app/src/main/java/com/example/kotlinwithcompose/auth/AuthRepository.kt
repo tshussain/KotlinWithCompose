@@ -13,7 +13,7 @@ interface AuthRepository {
     fun currentUser() : StateFlow<User?>
     suspend fun signUp(email: String, password: String): Boolean
     suspend fun signIn(email: String, password: String): Boolean
-    fun signOut()
-    suspend fun delete()
+    fun signOut() : Boolean
+    suspend fun delete() : Boolean
 
 }

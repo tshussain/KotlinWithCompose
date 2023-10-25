@@ -38,13 +38,17 @@ class AuthRepositoryFirebase(private val auth: FirebaseAuth) : AuthRepository {
         }
     }
 
-    override fun signOut() {
-        return auth.signOut()
+    override fun signOut() : Boolean {
+        auth.signOut()
+        return true
     }
 
-    override suspend fun delete() {
+    override suspend fun delete() : Boolean {
         if (auth.currentUser != null) {
             auth.currentUser!!.delete()
+            return true
+        } else {
+            return false
         }
     }
 
