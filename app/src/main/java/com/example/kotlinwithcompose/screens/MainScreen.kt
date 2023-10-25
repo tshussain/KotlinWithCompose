@@ -47,6 +47,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
+import com.example.kotlinwithcompose.CheckAuth
 import com.example.kotlinwithcompose.LocalList
 
 import com.example.kotlinwithcompose.R
@@ -68,6 +69,7 @@ fun MainScreen() {
     val mainList = LocalList.current
     MainLayout(screenTitle = "Home") {
 
+        CheckAuth()
         MySimplestScreen()
         MySimplerScreen()
         MySimpleScreen()
