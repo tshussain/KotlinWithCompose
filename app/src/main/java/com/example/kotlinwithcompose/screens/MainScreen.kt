@@ -41,14 +41,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.key.Key.Companion.W
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.SavedStateHandle
-import androidx.navigation.NavController
-import com.example.kotlinwithcompose.AuthLoginScreen
-import com.example.kotlinwithcompose.CheckAuth
 import com.example.kotlinwithcompose.LocalList
 
 import com.example.kotlinwithcompose.R
@@ -62,7 +57,6 @@ import com.example.kotlinwithcompose.model.MySimpleSavedScreen
 import com.example.kotlinwithcompose.model.MySimpleScreen
 import com.example.kotlinwithcompose.model.MySimplerScreen
 import com.example.kotlinwithcompose.model.MySimplestScreen
-import com.example.kotlinwithcompose.model.MyViewModelSimpleSaved
 
 @Composable
 fun MainScreen() {

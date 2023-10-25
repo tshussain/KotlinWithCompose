@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.kotlinwithcompose.MyApp
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
@@ -15,12 +16,12 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     }
 
     fun signUp(email: String, password: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             authRepository.signUp(email, password)
         }
     }
     fun signIn(email: String, password: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             authRepository.signIn(email, password)
         }
     }
@@ -28,7 +29,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
         authRepository.signOut()
     }
     fun delete() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             authRepository.delete()
         }
     }
