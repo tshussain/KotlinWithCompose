@@ -8,7 +8,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
-    // Return a StateFlow so that the composable can always update based when the value changes
+    // Return a StateFlow so that the composable can always update
+    // based when the value changes
     fun currentUser(): StateFlow<User?> {
         return authRepository.currentUser()
     }
@@ -25,6 +26,11 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     }
     fun signOut() {
         authRepository.signOut()
+    }
+    fun delete() {
+        viewModelScope.launch {
+            authRepository.delete()
+        }
     }
 }
 

@@ -6,19 +6,19 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.tasks.await
 
-
 /*
 https://firebase.google.com/docs/auth
  */
 class AuthRepositoryFirebase(private val auth: FirebaseAuth) : AuthRepository {
-//    private val _currentUser = MutableStateFlow(auth.currentUser?.toUser())
-//    val currentUser: StateFlow<User?> = _currentUser
     private val currentUserStateFlow = MutableStateFlow(auth.currentUser?.toUser())
 
     init {
         auth.addAuthStateListener { firebaseAuth ->
             currentUserStateFlow.value = firebaseAuth.currentUser?.toUser()
         }
+    }
+    override fun currentUser(): StateFlow<User?> {
+        return currentUserStateFlow
     }
     override suspend fun signUp(email: String, password: String): Boolean {
         return try {
@@ -41,10 +41,14 @@ class AuthRepositoryFirebase(private val auth: FirebaseAuth) : AuthRepository {
     override fun signOut() {
         return auth.signOut()
     }
-    override fun currentUser(): StateFlow<User?> {
-        return currentUserStateFlow
+
+    override suspend fun delete() {
+        if (auth.currentUser != null) {
+            auth.currentUser!!.delete()
+        }
     }
 
+    /** Convert from FirebaseUser to User */
     private fun FirebaseUser?.toUser(): User? {
         return this?.let {
             if (it.email==null) null else
@@ -54,9 +58,5 @@ class AuthRepositoryFirebase(private val auth: FirebaseAuth) : AuthRepository {
         }
     }
 
-    suspend fun delete() {
-        if (auth.currentUser != null) {
-            auth.currentUser!!.delete()
-        }
-    }
+
 }
