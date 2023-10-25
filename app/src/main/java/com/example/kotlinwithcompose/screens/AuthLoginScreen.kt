@@ -1,4 +1,4 @@
-package com.example.kotlinwithcompose
+package com.example.kotlinwithcompose.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
