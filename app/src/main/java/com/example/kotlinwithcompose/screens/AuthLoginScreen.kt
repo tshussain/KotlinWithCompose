@@ -37,9 +37,9 @@ fun AuthLoginScreen(authViewModel: AuthViewModel =
     // Show a Snackbar when sign-in is successful
     LaunchedEffect(signUpResult) {
         signUpResult?.let {
-            if (it is ResultAuth.Success) {
+            if (it is ResultAuth.Success && it.data) {
                 snackbarHostState.showSnackbar("Sign-up Successful")
-            } else {
+            } else if (it is ResultAuth.Failure || it is ResultAuth.Success) { // success(false) case
                 snackbarHostState.showSnackbar("Sign-up Unsuccessful")
             }
         }
@@ -50,7 +50,7 @@ fun AuthLoginScreen(authViewModel: AuthViewModel =
         signInResult?.let {
             if (it is ResultAuth.Success && it.data) {
                 snackbarHostState.showSnackbar("Sign-in Successful")
-            } else {
+            } else if (it is ResultAuth.Failure || it is ResultAuth.Success) { // success(false) case) {
                 snackbarHostState.showSnackbar("Sign-in Unsuccessful")
             }
         }
@@ -61,8 +61,9 @@ fun AuthLoginScreen(authViewModel: AuthViewModel =
         signOutResult?.let {
             if (it is ResultAuth.Success && it.data) {
                 snackbarHostState.showSnackbar("Sign-out Successful")
-            } else
+            } else if (it is ResultAuth.Failure || it is ResultAuth.Success) { // success(false) case) {
                 snackbarHostState.showSnackbar("Sign-out Unsuccessful")
+            }
         }
     }
 
@@ -72,7 +73,7 @@ fun AuthLoginScreen(authViewModel: AuthViewModel =
         deleteAccountResult?.let {
             if (it is ResultAuth.Success && it.data) {
                 snackbarHostState.showSnackbar("Account Deleted")
-            } else {
+            } else if (it is ResultAuth.Failure || it is ResultAuth.Success) { // success(false) case)  {
                 snackbarHostState.showSnackbar("Deletion failed")
             }
         }

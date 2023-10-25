@@ -35,6 +35,10 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
             } catch (e: FirebaseAuthException) {
                 _signUpResult.value = ResultAuth.Failure(e)
             }
+            // Reset the others since they are no longer applicable
+            _signInResult.value = ResultAuth.Inactive
+            _signOutResult.value = ResultAuth.Inactive
+            _deleteAccountResult.value = ResultAuth.Inactive
         }
     }
     fun signIn(email: String, password: String) {
@@ -45,6 +49,10 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
             } catch (e: FirebaseAuthException) {
                 _signInResult.value = ResultAuth.Failure(e)
             }
+            // Reset the others since they are no longer applicable
+            _signUpResult.value = ResultAuth.Inactive
+            _signOutResult.value = ResultAuth.Inactive
+            _deleteAccountResult.value = ResultAuth.Inactive
         }
     }
     fun signOut() {
@@ -54,15 +62,23 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
         } catch (e: FirebaseAuthException) {
             _signOutResult.value = ResultAuth.Failure(e)
         }
+        // Reset the others since they are no longer applicable
+        _signInResult.value = ResultAuth.Inactive
+        _signUpResult.value = ResultAuth.Inactive
+        _deleteAccountResult.value = ResultAuth.Inactive
     }
     fun delete() {
         viewModelScope.launch(Dispatchers.IO) {
-        try {
-            val success = authRepository.delete()
-            _deleteAccountResult.value = ResultAuth.Success(success)
-        } catch (e: FirebaseAuthException) {
-            _deleteAccountResult.value = ResultAuth.Failure(e)
-        }
+            try {
+                val success = authRepository.delete()
+                _deleteAccountResult.value = ResultAuth.Success(success)
+            } catch (e: FirebaseAuthException) {
+                _deleteAccountResult.value = ResultAuth.Failure(e)
+            }
+            // Reset the others since they are no longer applicable
+            _signInResult.value = ResultAuth.Inactive
+            _signUpResult.value = ResultAuth.Inactive
+            _signOutResult.value = ResultAuth.Inactive
         }
     }
 }
