@@ -12,10 +12,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
-    private val _signInResult = MutableStateFlow<ResultAuth<Boolean>?>(null)
-    private val _signUpResult = MutableStateFlow<ResultAuth<Boolean>?>(null)
-    private val _signOutResult = MutableStateFlow<ResultAuth<Boolean>?>(null)
-    private val _deleteAccountResult = MutableStateFlow<ResultAuth<Boolean>?>(null)
+    private val _signInResult = MutableStateFlow<ResultAuth<Boolean>?>(ResultAuth.Inactive)
+    private val _signUpResult = MutableStateFlow<ResultAuth<Boolean>?>(ResultAuth.Inactive)
+    private val _signOutResult = MutableStateFlow<ResultAuth<Boolean>?>(ResultAuth.Inactive)
+    private val _deleteAccountResult = MutableStateFlow<ResultAuth<Boolean>?>(ResultAuth.Inactive)
 
     val signInResult: StateFlow<ResultAuth<Boolean>?> = _signInResult
     val signUpResult: StateFlow<ResultAuth<Boolean>?> = _signUpResult

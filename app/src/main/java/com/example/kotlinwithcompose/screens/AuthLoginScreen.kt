@@ -27,14 +27,14 @@ fun AuthLoginScreen(authViewModel: AuthViewModel =
     ) {
     val userState = authViewModel.currentUser().collectAsState()
 
-    val signUpResult by authViewModel.signUpResult.collectAsState(null)
-    val signInResult by authViewModel.signInResult.collectAsState(null)
-    val signOutResult by authViewModel.signOutResult.collectAsState(null)
-    val deleteAccountResult by authViewModel.deleteAccountResult.collectAsState(null)
+    val signUpResult by authViewModel.signUpResult.collectAsState(ResultAuth.Inactive)
+    val signInResult by authViewModel.signInResult.collectAsState(ResultAuth.Inactive)
+    val signOutResult by authViewModel.signOutResult.collectAsState(ResultAuth.Inactive)
+    val deleteAccountResult by authViewModel.deleteAccountResult.collectAsState(ResultAuth.Inactive)
 
     val snackbarHostState = remember { SnackbarHostState() } // Material 3 approach
 
-    // Show a Snackbar when sign-up is successful
+    // Show a Snackbar when sign-up is successful, etc.
     LaunchedEffect(signUpResult) {
         signUpResult?.let {
             if (it is ResultAuth.Inactive) {
