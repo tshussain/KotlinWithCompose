@@ -34,9 +34,16 @@ fun AuthLoginScreen(authViewModel: AuthViewModel =
 
     val snackbarHostState = remember { SnackbarHostState() } // Material 3 approach
 
-    // Show a Snackbar when sign-in is successful
+    // Show a Snackbar when sign-up is successful
     LaunchedEffect(signUpResult) {
         signUpResult?.let {
+            if (it is ResultAuth.Inactive) {
+                return@LaunchedEffect
+            }
+            if (it is ResultAuth.InProgress) {
+                snackbarHostState.showSnackbar("Sign-up In Progress")
+                return@LaunchedEffect
+            }
             if (it is ResultAuth.Success && it.data) {
                 snackbarHostState.showSnackbar("Sign-up Successful")
             } else if (it is ResultAuth.Failure || it is ResultAuth.Success) { // success(false) case
@@ -48,6 +55,13 @@ fun AuthLoginScreen(authViewModel: AuthViewModel =
     // Show a Snackbar when sign-in is successful
     LaunchedEffect(signInResult) {
         signInResult?.let {
+            if (it is ResultAuth.Inactive) {
+                return@LaunchedEffect
+            }
+            if (it is ResultAuth.InProgress) {
+                snackbarHostState.showSnackbar("Sign-in In Progress")
+                return@LaunchedEffect
+            }
             if (it is ResultAuth.Success && it.data) {
                 snackbarHostState.showSnackbar("Sign-in Successful")
             } else if (it is ResultAuth.Failure || it is ResultAuth.Success) { // success(false) case) {
@@ -59,6 +73,13 @@ fun AuthLoginScreen(authViewModel: AuthViewModel =
     // Show a Snackbar when sign-out is successful
     LaunchedEffect(signOutResult) {
         signOutResult?.let {
+            if (it is ResultAuth.Inactive) {
+                return@LaunchedEffect
+            }
+            if (it is ResultAuth.InProgress) {
+                snackbarHostState.showSnackbar("Sign-out In Progress")
+                return@LaunchedEffect
+            }
             if (it is ResultAuth.Success && it.data) {
                 snackbarHostState.showSnackbar("Sign-out Successful")
             } else if (it is ResultAuth.Failure || it is ResultAuth.Success) { // success(false) case) {
@@ -71,6 +92,13 @@ fun AuthLoginScreen(authViewModel: AuthViewModel =
     // Show a Snackbar when account deletion is successful
     LaunchedEffect(deleteAccountResult) {
         deleteAccountResult?.let {
+            if (it is ResultAuth.Inactive) {
+                return@LaunchedEffect
+            }
+            if (it is ResultAuth.InProgress) {
+                snackbarHostState.showSnackbar("Deletion In Progress")
+                return@LaunchedEffect
+            }
             if (it is ResultAuth.Success && it.data) {
                 snackbarHostState.showSnackbar("Account Deleted")
             } else if (it is ResultAuth.Failure || it is ResultAuth.Success) { // success(false) case)  {
