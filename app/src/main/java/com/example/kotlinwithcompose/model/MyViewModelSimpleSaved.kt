@@ -46,6 +46,12 @@ class MyViewModelSimpleSaved(private val profileRepository: ProfileRepository) :
         }
     }
 
+    fun clearProfile() {
+        viewModelScope.launch {
+            profileRepository.clear()
+        }
+    }
+
 }
 
 /* ViewModel Factory that will create our view model by injecting the

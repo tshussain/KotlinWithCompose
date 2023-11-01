@@ -1,17 +1,11 @@
 package com.example.kotlinwithcompose.model
 
 import android.util.Log
-import com.google.android.play.core.integrity.p
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.tasks.await
 
 class ProfileRepositoryFirestore (val db: FirebaseFirestore) : ProfileRepository {
     val dbProfile: CollectionReference = db.collection("Profile")
@@ -27,8 +21,7 @@ class ProfileRepositoryFirestore (val db: FirebaseFirestore) : ProfileRepository
             }
     }
 
-    override suspend fun getProfile(): Flow<ProfileData>
-            = callbackFlow {
+    override suspend fun getProfile(): Flow<ProfileData> = callbackFlow {
 
         val docRef = dbProfile.document("main-profile")
         val subscription = docRef.addSnapshotListener{ snapshot, error ->
@@ -57,6 +50,9 @@ class ProfileRepositoryFirestore (val db: FirebaseFirestore) : ProfileRepository
     }
 
     override suspend fun clear() {
-        TODO("Not yet implemented")
+        dbProfile.document(profileId)
+            .delete()
+            .addOnSuccessListener { println("Profile successfully deleted!") }
+            .addOnFailureListener { error -> println("Error deleting profile: $error") }
     }
 }

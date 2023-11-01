@@ -32,6 +32,14 @@ fun MySimpleSavedScreen(myViewModel: MyViewModelSimpleSaved =
                 fontSize = 16.sp
             )
         }
+        Button(
+            onClick = { myViewModel.clearProfile() }
+        ) {
+            Text(
+                text = "Delete Profile",
+                fontSize = 16.sp
+            )
+        }
         if (myUiState != null) {
             Text(text = "Name: ${myUiState.name}")
             Text(text = "Counter value ${myUiState.counter}")

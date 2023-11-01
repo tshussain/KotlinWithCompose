@@ -65,9 +65,9 @@ fun MainScreen() {
     MainLayout(screenTitle = "Home") {
 
         AuthLoginScreen()
-        MySimplestScreen()
-        MySimplerScreen()
-        MySimpleScreen()
+//        MySimplestScreen()
+//        MySimplerScreen()
+//        MySimpleScreen()
         MySimpleSavedScreen()
 
         Button(onClick = { mainList.add(MyData("Joe", mainList.size))
