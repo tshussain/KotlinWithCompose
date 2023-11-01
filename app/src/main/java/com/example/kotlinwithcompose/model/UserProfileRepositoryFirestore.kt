@@ -1,22 +1,29 @@
 package com.example.kotlinwithcompose.model
 
+import androidx.compose.runtime.collectAsState
+import com.example.kotlinwithcompose.auth.AuthRepository
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
-class UserProfileRepositoryFirestore (val db: FirebaseFirestore) : UserProfileRepository {
+class UserProfileRepositoryFirestore (val auth: AuthRepository, val db: FirebaseFirestore) : UserProfileRepository {
     val dbUserProfiles: CollectionReference = db.collection("UserProfiles")
+
     override suspend fun saveProfile(oldName: String, profileData: ProfileData) {
-        // We are storing only a single profile at a time, so use a unique document name to refer to it
-        dbUserProfiles.document(oldName).set(profileData)
-            .addOnSuccessListener {
-                println("Profile saved.")
-            }
-            .addOnFailureListener { e ->
-                println("Error saving profile: $e")
-            }
+        if (auth.hasCurrentUserDirect()) {
+            // We are storing only a single profile at a time, so use a unique document name to refer to it
+            dbUserProfiles.document(oldName).set(profileData)
+                .addOnSuccessListener {
+                    println("Profile saved.")
+                }
+                .addOnFailureListener { e ->
+                    println("Error saving profile: $e")
+                }
+        } else {
+            println("Save Profile failed: User is not authenticated")
+        }
     }
 
     override suspend fun getProfile(name: String): Flow<ProfileData> = callbackFlow {
@@ -48,10 +55,14 @@ class UserProfileRepositoryFirestore (val db: FirebaseFirestore) : UserProfileRe
     }
 
     override suspend fun delete(name:String) {
-        dbUserProfiles.document(name)
-            .delete()
-            .addOnSuccessListener { println("Profile $name successfully deleted!") }
-            .addOnFailureListener { error -> println("Error deleting profile $name: $error") }
+        if (auth.hasCurrentUserDirect()) {
+            dbUserProfiles.document(name)
+                .delete()
+                .addOnSuccessListener { println("Profile $name successfully deleted!") }
+                .addOnFailureListener { error -> println("Error deleting profile $name: $error") }
+        } else {
+            println("Delete failed: User is not authenticated")
+        }
     }
 
     override suspend fun getProfiles(): Flow<List<ProfileData>> = callbackFlow {

@@ -28,6 +28,10 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
         return authRepository.currentUser()
     }
 
+    fun hasCurrentUserDirect() {
+        authRepository.currentUser() != null
+    }
+
     fun signUp(email: String, password: String) {
         _signUpResult.value = ResultAuth.InProgress
         viewModelScope.launch(Dispatchers.IO) {

@@ -25,7 +25,7 @@ class AppModule(
         ProfileRepositoryFirestore(firestore)
     }
     val userProfileRepository : UserProfileRepository by lazy {
-        UserProfileRepositoryFirestore(firestore)
+        UserProfileRepositoryFirestore(authRepository, firestore)
     }
     val authRepository : AuthRepository by lazy {
         AuthRepositoryFirebase(auth) // inject Firebase auth

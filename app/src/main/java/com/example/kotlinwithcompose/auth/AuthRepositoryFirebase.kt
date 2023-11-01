@@ -20,6 +20,12 @@ class AuthRepositoryFirebase(private val auth: FirebaseAuth) : AuthRepository {
     override fun currentUser(): StateFlow<User?> {
         return currentUserStateFlow
     }
+
+    override fun hasCurrentUserDirect(): Boolean {
+        return auth.currentUser != null
+    }
+
+
     override suspend fun signUp(email: String, password: String): Boolean {
         return try {
             auth.createUserWithEmailAndPassword(email, password).await()
