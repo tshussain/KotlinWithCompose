@@ -19,7 +19,7 @@ class AppModule(
     /* Create appropriate repository (backed by Firebase) on first use.
        Only one copy will be created during lifetime of the application. */
     val profileRepository : ProfileRepository by lazy {
-        ProfileRepositoryFirestore(auth, FirebaseFirestore.getInstance())
+        ProfileRepositoryFirestore(FirebaseFirestore.getInstance())
     }
     val authRepository : AuthRepository by lazy {
         AuthRepositoryFirebase(auth) // inject Firebase auth
