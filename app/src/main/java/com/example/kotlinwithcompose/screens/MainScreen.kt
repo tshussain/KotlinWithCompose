@@ -57,6 +57,7 @@ import com.example.kotlinwithcompose.model.MySimpleSavedScreen
 import com.example.kotlinwithcompose.model.MySimpleScreen
 import com.example.kotlinwithcompose.model.MySimplerScreen
 import com.example.kotlinwithcompose.model.MySimplestScreen
+import com.example.kotlinwithcompose.model.UserProfilesScreen
 
 @Composable
 fun MainScreen() {
@@ -69,11 +70,12 @@ fun MainScreen() {
 //        MySimplerScreen()
 //        MySimpleScreen()
         MySimpleSavedScreen()
+        UserProfilesScreen()
 
-        Button(onClick = { mainList.add(MyData("Joe", mainList.size))
-        }) {
-            Text("Add")
-        }
+//        Button(onClick = { mainList.add(MyData("Joe", mainList.size))
+//        }) {
+//            Text("Add")
+//        }
 
         LazyColumn {
             itemsIndexed(mainList) { index, item ->

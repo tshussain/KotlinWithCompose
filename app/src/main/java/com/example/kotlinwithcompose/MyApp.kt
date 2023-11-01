@@ -2,6 +2,7 @@ package com.example.kotlinwithcompose
 
 import android.app.Application
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 /** This file allows us to provide a single ("static") module that can be accessed
@@ -17,6 +18,6 @@ class MyApp: Application() {
     /* Called only once at beginning of application's lifetime */
     override fun onCreate() {
         super.onCreate()
-        appModule = AppModule(this, Firebase.auth)
+        appModule = AppModule(this, Firebase.auth, FirebaseFirestore.getInstance())
     }
 }
