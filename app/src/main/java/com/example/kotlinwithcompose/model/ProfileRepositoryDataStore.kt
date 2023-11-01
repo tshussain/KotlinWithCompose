@@ -31,7 +31,7 @@ class ProfileRepositoryDataStore (private val context: Context) : ProfileReposit
 
     /** Get the data in the DataStore as a flow.  Since the store may have never
      *     been used yet, handle the null case with default values. */
-    override fun getProfile(): Flow<ProfileData> = context.dataStore.data.map {
+    override suspend fun getProfile(): Flow<ProfileData> = context.dataStore.data.map {
         ProfileData(
             name = it[NAME] ?: "",
             counter = it[COUNTER] ?: 0
