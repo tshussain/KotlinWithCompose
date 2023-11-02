@@ -16,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navDeepLink
 
 val LocalNavController = compositionLocalOf<NavHostController> { error("No NavController found!") }
 
@@ -73,6 +74,18 @@ fun Router() {
                     )
                 }
                 composable(Routes.Register.Signup.route) { SignupScreen() }
+            }
+            composable("deeplink",
+                // Note that this navDeepLink pattern has no relation to the route itself
+                deepLinks = listOf(navDeepLink { uriPattern = "example://compose.deeplink" })
+            ) {
+                DeepScreen("hard-coded")
+            }
+            composable("deeplink2?id={id}",
+                // Note that this navDeepLink pattern has no relation to the route itself
+                deepLinks = listOf(navDeepLink { uriPattern = "example://compose.deeplink2/?id={id}" })
+            ) { backStackEntry ->
+                DeepScreen(backStackEntry.arguments?.getString("id"))
             }
         }
     }
