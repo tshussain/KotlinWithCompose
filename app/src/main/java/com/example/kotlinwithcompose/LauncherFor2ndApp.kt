@@ -26,7 +26,7 @@ fun LauncherFor2ndApp(modifier: Modifier = Modifier) {
     val localContext = LocalContext.current
     var resultText by remember { mutableStateOf("") }
 
-    val deepLinkLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    val activityLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         // Handle the result if needed
         if (result.resultCode == Activity.RESULT_OK) {
             // Handle the result data here
@@ -37,7 +37,7 @@ fun LauncherFor2ndApp(modifier: Modifier = Modifier) {
     }
     Column {
         Text(
-            text = "Hello!.  CLick me to go to second activity",
+            text = "Hello!.  Click me to go to second activity in the same app",
             modifier = modifier
                 .clickable {
             // Commented out since second activity doesn't exist in this project.
@@ -47,7 +47,7 @@ fun LauncherFor2ndApp(modifier: Modifier = Modifier) {
                 }
         )
         Text(
-            text = "Hello!.  CLick me to go to a different program",
+            text = "Hello!.  Click me to go to a different app",
             modifier = modifier
                 .clickable {
                     localContext.startActivity(
@@ -62,7 +62,20 @@ fun LauncherFor2ndApp(modifier: Modifier = Modifier) {
                 }
         )
         Text(
-            text = "Hello!.  Click me to use a deep link to another program",
+            text = "Hello!.  Click me to go to a different app and get a result",
+            modifier = modifier
+                .clickable {
+                    val intent = Intent(Intent.ACTION_MAIN)
+                        .setComponent(
+                            ComponentName(
+                                "com.example.kotlinwithcompose", //The package name of the app to which intent is to be sent
+                                "com.example.kotlinwithcompose.MainActivity"
+                            ))
+                    activityLauncher.launch(intent)
+                }
+        )
+        Text(
+            text = "Hello!.  Click me to use a deep link to a screen/location in another app",
             modifier = modifier
                 .clickable {
                     localContext.startActivity(
@@ -85,7 +98,7 @@ fun LauncherFor2ndApp(modifier: Modifier = Modifier) {
             modifier = modifier
                 .clickable {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse("example://compose.deeplink2/?id=$id"))
-                    deepLinkLauncher.launch(intent)
+                    activityLauncher.launch(intent)
                 }
         )
         if (resultText.isNotEmpty()) {

@@ -2,6 +2,7 @@
 
 package com.example.kotlinwithcompose.screens
 
+import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -64,6 +65,12 @@ fun MainScreen() {
     val navController = LocalNavController.current
     val mainList = LocalList.current
     MainLayout(screenTitle = "Home") {
+
+        Button(onClick = {
+            navController.navigate("deeplink") }
+        ) {
+            Text("Go to Deep Link Screen")
+        }
 
         AuthLoginScreen()
 //        MySimplestScreen()
