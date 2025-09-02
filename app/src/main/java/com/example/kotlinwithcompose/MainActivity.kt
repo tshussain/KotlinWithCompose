@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.kotlinwithcompose.ui.MyScreen
 import com.example.kotlinwithcompose.ui.theme.KotlinWithComposeTheme
 
-class MainActivity : ComponentActivit() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()  // Now recommended by Google
