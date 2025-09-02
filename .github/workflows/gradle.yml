@@ -68,9 +68,10 @@ jobs:
   # The third job called "android_tests"
   android_tests:
   runs-on: ubuntu-latest
-    steps:
+  steps:
       - name: checkout
         uses: actions/checkout@v4
+        
       - name: Enable KVM
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
