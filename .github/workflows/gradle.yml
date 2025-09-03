@@ -98,3 +98,27 @@ jobs:
           script: ./gradlew connectedCheck
 
     
+ # The second job called "unit_tests"
+  # It should run only after the build job succeeds
+    unit_tests:
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+  
+        - name: Set up JDK 17
+          uses: actions/setup-java@v4
+          with:
+            java-version: 17
+            distribution: 'temurin'
+  
+        - name: Grant execute permission for gradlew
+          run: chmod +x gradlew
+  
+        # Execute unit tests
+        - name: Unit Test
+          run: ./gradlew testDebugUnitTest
+  
+        - name: Android Test Report
+          uses: asadmansr/android-test-report-action@v1.2.0
+          if: ${{ always() }} # IMPORTANT: run Android Test Report regardless
